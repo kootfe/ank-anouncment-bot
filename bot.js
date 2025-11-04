@@ -36,9 +36,9 @@ export const setupBotCommands = () => {
                 break;
             case "!info":
                 const embed = new EmbedBuilder()
-                    .setTitle("Anikagai Webtoon!")
+                    .setTitle("Anikagai Anime ve Webtoon!")
                     .setColor(0x000000)
-                    .setDescription("Türkiyenin en kaliteli webtoon sitesi!")
+                    .setDescription("Türkiyenin en kaliteli anime & webtoon sitesi!")
                     .setFooter({ text: "Anikagai Forever" })
                     .setThumbnail("https://anikagai.com/user/img/logo/logo.png")
                     .setTimestamp();
