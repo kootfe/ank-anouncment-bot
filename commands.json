@@ -1,0 +1,20 @@
+{
+    "test": {
+        "title": "anan",
+        "desc": "test",
+        "color": "#ffffff",
+        "foot": "Anikagai forever",
+        "thumb": "https://i.imgur.com/AfFp7pu.png",
+        "fields": [
+            { "name": "Ana2", "value": "test1" },
+            { "name": "Ana3", "value": "test2" }
+        ],
+       "time": true
+    },
+    "patates": {
+        "title": "Lonly",
+        "desc": "Test comamnd",
+        "foto": "Lonly forever",
+        "time": true
+    }
+}

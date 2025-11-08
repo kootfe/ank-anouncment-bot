@@ -1,4 +1,5 @@
 import { Client, GatewayIntentBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
+import fs from "fs";
 
 export const client = new Client({
     intents: [
@@ -7,6 +8,8 @@ export const client = new Client({
         GatewayIntentBits.MessageContent,
     ]
 });
+
+export const prefix = '!';
 
 export const sendAnounceEmbed = async (msg, channel, title, desc, iurl, eurl) => {
     const embed = new EmbedBuilder()
@@ -30,11 +33,13 @@ export const sendAnounceEmbed = async (msg, channel, title, desc, iurl, eurl) =>
 export const setupBotCommands = () => {
     client.on("messageCreate", (msg) => {
         if (msg.author.bot) return;
-        switch (msg.content) {
-            case "!ping":
+        if (!msg.content.startsWith(prefix));
+        const cmdname = msg.content.slice(prefix.length).split(' ')[0];
+        switch (cmdname) {
+            case "ping":
                 msg.channel.send("Pong!");
                 break;
-            case "!info":
+            case "info":
                 const embed = new EmbedBuilder()
                     .setTitle("Anikagai Anime ve Webtoon!")
                     .setColor(0x000000)
@@ -60,3 +65,26 @@ export const setupBotCommands = () => {
     });
 };
 
+const commands = JSON.parse(fs.readFileSync('./commands.json', 'utf-8'));
+
+client.on('messageCreate', async message => {
+    console.log("test");
+    if (message.author.bot) return;
+    if (!message.content.startsWith(prefix)) return;
+    const cmdname_t = message.content.slice(prefix.length).split(' ')[0];
+    const command = commands[cmdname_t];
+
+    if (!command) return;
+
+    const embed = new EmbedBuilder();
+
+    if (command.title) embed.setTitle(command.title);
+    if (command.desc) embed.setDescription(command.desc);
+    if (command.color) embed.setColor(command.color);
+    if (command.foot) embed.setFooter({ text: command.foot }); // must be object, not string
+    if (command.thumb) embed.setThumbnail(command.thumb);
+    if (command.time) embed.setTimestamp();
+    if (command.fields) embed.addFields(command.fields);
+
+    message.channel.send({ embeds: [embed] });
+});

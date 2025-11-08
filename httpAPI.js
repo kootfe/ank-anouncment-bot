@@ -6,7 +6,6 @@ import { client, sendAnounceEmbed, setupBotCommands} from "./bot.js"
 
 const app = express();
 app.use(express.json());
-
 setupBotCommands();
 
 
